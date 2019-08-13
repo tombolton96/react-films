@@ -1,25 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import FilmList from './components/filmList';
+import FilmDetails from './components/filmDetails';
 import './App.css';
 
 function App() {
+  return(
+    <Router>
+      <div>
+        <Header/>
+        <Route exact path="/" component={Listings} />
+        <Route path="/:slug" 
+              render={({ match }) => <FilmDetails match={match} />}/>
+      </div>
+    </Router>
+  )
+}
+
+function Listings() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <FilmList minDuration={5500}/>
     </div>
+  );
+}
+
+function Header() {
+  return (
+    <header className="App-header">React Films</header>
   );
 }
 
